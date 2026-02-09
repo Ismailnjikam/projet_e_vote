@@ -14,8 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('email')->unique();
             $table->string('login')->unique();
-           $table->foreignId('filiere_id')->nullable()->constrained('filieres');
+            $table->enum('role',['votant','admin'])->default('votant');
+            $table->foreignId('filiere_id')->nullable()->constrained('filieres');
+            $table->foreignId('promoted_by')->nullable()->constrained('users');
+            $table->timestamp('promoted_at')->nullable();
+            $table->foreignId('revoqued_by')->nullable()->constrained('users');
+            $table->timestamp('revoqued_at')->nullable();
             $table->timestamp('login_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -1,0 +1,256 @@
+/* ====================================
+   PAGE DE GESTION DES SCRUTINS
+   ==================================== */
+
+.scrutins-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.scrutins-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.scrutins-header h1 {
+    flex: 1;
+    min-width: 200px;
+}
+
+.scrutin-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #10b981;
+    transition: all 0.3s ease;
+}
+
+.scrutin-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.scrutin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.scrutin-title h3 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 1.2rem;
+}
+
+.scrutin-date {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.scrutin-status {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-active {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.status-inactive {
+    background-color: rgba(107, 114, 128, 0.1);
+    color: #6b7280;
+}
+
+.status-ended {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.scrutin-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item label {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.info-item value {
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+.scrutin-description {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.scrutin-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.scrutin-actions a,
+.scrutin-actions button {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.btn-manage {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.btn-manage:hover {
+    background-color: #2563eb;
+}
+
+.btn-edit {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #d97706;
+}
+
+.btn-delete {
+    background-color: #ef4444;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #dc2626;
+}
+
+.no-scrutins {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6b7280;
+}
+
+/* ====================================
+   RESPONSIVE SCRUTINS
+   ==================================== */
+
+@media (max-width: 992px) {
+    .scrutin-info {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .scrutins-container {
+        padding: 1.5rem;
+    }
+
+    .scrutins-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .scrutins-header h1 {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .scrutin-card {
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .scrutin-header {
+        flex-direction: column;
+    }
+
+    .scrutin-status {
+        align-self: flex-start;
+    }
+
+    .scrutin-info {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .scrutin-actions {
+        flex-wrap: wrap;
+    }
+
+    .scrutin-actions a,
+    .scrutin-actions button {
+        flex: 1;
+        min-width: 100px;
+        padding: 0.6rem 0.75rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .scrutins-container {
+        padding: 1rem;
+    }
+
+    .scrutin-card {
+        padding: 1rem;
+    }
+
+    .scrutin-title h3 {
+        font-size: 1.05rem;
+    }
+
+    .scrutin-info {
+        gap: 0.5rem;
+    }
+
+    .info-item label {
+        font-size: 0.85rem;
+    }
+
+    .scrutin-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .scrutin-actions a,
+    .scrutin-actions button {
+        flex: 1;
+        width: 100%;
+        padding: 0.6rem;
+    }
+}

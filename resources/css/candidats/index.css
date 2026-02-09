@@ -1,0 +1,173 @@
+/* ====================================
+   PAGE DE GESTION DES CANDIDATS
+   ==================================== */
+
+.candidats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.candidats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.candidats-header h1 {
+    flex: 1;
+    min-width: 200px;
+}
+
+.candidat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.candidat-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.candidat-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.candidat-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.candidat-field label {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.candidat-field value {
+    color: #6b7280;
+}
+
+.candidat-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.candidat-actions a,
+.candidat-actions button {
+    flex: 1;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.btn-edit {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #2563eb;
+}
+
+.btn-delete {
+    background-color: #ef4444;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #dc2626;
+}
+
+.no-candidats {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6b7280;
+}
+
+/* ====================================
+   RESPONSIVE CANDIDATS
+   ==================================== */
+
+@media (max-width: 768px) {
+    .candidats-container {
+        padding: 1.5rem;
+    }
+
+    .candidats-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .candidats-header h1 {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .candidat-card {
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .candidat-info {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .candidat-actions {
+        flex-wrap: wrap;
+    }
+
+    .candidat-actions a,
+    .candidat-actions button {
+        flex: 1 1 calc(50% - 0.375rem);
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    .candidats-container {
+        padding: 1rem;
+    }
+
+    .candidat-card {
+        padding: 1rem;
+    }
+
+    .candidat-info {
+        gap: 0.5rem;
+    }
+
+    .candidat-field label {
+        font-size: 0.85rem;
+    }
+
+    .candidat-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .candidat-actions a,
+    .candidat-actions button {
+        flex: 1;
+        width: 100%;
+    }
+}

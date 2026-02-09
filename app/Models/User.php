@@ -3,9 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var list<string>
      */
    
-     protected $fillable = ['name','login', 'password', 'filiere_id'];
+     protected $fillable = ['name','email','login', 'password', 'filiere_id', 'role','promoted_by','promoted_at','revoqued_by','revoqued_at'];
 
     protected $hidden = ['password'];
 
@@ -27,7 +28,7 @@ class User extends Authenticatable
     }
 
     public function votes() {
-        return $this->hasMany(Vote::class);
+        return $this->belongsTo(Vote::class);
     }
 
     /**
@@ -49,4 +50,57 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function makeAdmin($id){
+        $user = Auth::user();
+
+        if($user->role !== 'admin'){
+            return false;
+        }
+
+        $targetUser = User::findOrFail($id);
+        
+        if($targetUser->role === 'admin'){
+            return "Vous êtes déjà administrateur";
+        }
+
+        $targetUser->update([
+            'role' => 'admin',
+            'promoted_by'=>$user->id,
+            'promoted_at'=>now(),
+            ]);
+        return "utilisateur {$targetUser->name} a ete nomme admin avec succes";
+        
+    }
+
+    public function revokeAdmin($id){
+        $user = Auth::user();
+
+        if($user->role !== 'admin'){
+            return false;
+        }
+
+        $targetUser = User::findOrFail($id);
+
+        if($targetUser->role === 'votant'){
+            return "cet utilisateur est deja votant";
+        }
+
+        if($targetUser->id === $user->promoted_by){
+            return "Vous ne pouvez pas revoque celui qui vous a nomme administrateur";
+        }
+
+        if($targetUser->id === $user->id){
+            return "Vous ne pouvez pas vous meme revoque vos droit admin";
+        }
+
+        $targetUser->update([
+            'role'=>'votant',
+            'revoqued_by'=>$user->id,
+            'revoqued_at'=>now()
+            ]);
+        return "les droit admin de {$targetUser->name} ont ete revoque avec succes";
+
+    }
+
 }

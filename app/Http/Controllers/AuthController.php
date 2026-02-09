@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -20,19 +21,29 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'login' => 'required|string|max:255|unique:users,login',
-            'password' => 'required|string|min:6|confirmed',
+            'email' => 'required|string|max:255|unique:users,login',
+            'password' => 'required|string|min:8|confirmed',
         ]);
+
+        //permet de generer le login d'acces a la plateforme
+        $nextNumber = User::where('role','votant')->count()+1;
+        $login = 'votant' . str_pad($nextNumber, 4 , STR_PAD_LEFT);
 
         $user = User::create([
             'name' => $request->name,
-            'login' => $request->login,
+            'email' => $request->email,
+            'login'=>$login,
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user); // connecte directement l'utilisateur après inscription
+        Mail::send('email.login-notification',[
+            'user'=>$user,
+            'login'=>$login,
+        ],function($message)use($user){
+            $message->to($user->email)->subject('Vos identifiants de connexion - Plateforme de vote');
+        });
 
-        return redirect()->route('dashboard');
+        return redirect()->route('login')->with('message','Inscription réussie! Vérifiez votre email pour vos identifiants de conncxion .');
     }
 
     // Affiche le formulaire de connexion
@@ -49,16 +60,27 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        $credentials = $request->only('login', 'password');
+        $credentials = $request->only(['login', 'password']);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('dashboard');
+        $user = User::where('login', $request->login)->first();
+        if(!$user){
+            return redirect()->route('register')->with('message',' Compte votant introuvalble ! veuillez vous inscrire');
         }
 
-        return back()->withErrors([
-            'login' => 'Identifiants invalides.',
-        ]);
+        if(!Hash::check($request->password, $user->password)){
+            return back()->withErrors([
+                'password'=>'mot de passe incorrect! veuillez saisir a nouveau'
+            ])->withInput($request->except('password'));
+        }
+        
+            Auth::login($user);
+        if($user->role === 'admin'){
+            return redirect()->route('admin.dashboard')->with('message','connexion reussi');
+        }else{
+
+            return redirect()->intended(route('votant.dashboard'))->with('message','connexion reussi');
+        }
+        
     }
 
     // Déconnecte l'utilisateur
@@ -67,6 +89,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login');
+        return redirect()->route('login')->with('Deconnexion reussi');
     }
 }

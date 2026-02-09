@@ -1,0 +1,14 @@
+.welcome-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem;
+    border-radius: 12px;
+    text-align: center;
+}
+.welcome-card h1 {
+    color: white;
+    margin-bottom: 1rem;
+}
+.action-buttons {
+    margin-top: 2rem;
+}

@@ -3,47 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier la Filière</title>
-    <style>
-        body { font-family: Arial; background: #f4f6f8; margin:0; padding:0; }
-        .container {
-            max-width: 500px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        input[type="text"], button {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            background-color: #f59e0b;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        button:hover {
-            background-color: #d97706;
-        }
-        a { text-decoration: none; color: #3b82f6; }
-    </style>
+    <title>Modifier Filière | E-Vote</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/filieres/edit.css') }}">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #1f2937;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ route('welcome') }}">
+                <i class="bi bi-check-circle"></i> E-Vote
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('filieres.index') }}">Retour</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <h2>Modifier la Filière</h2>
-        <form action="{{ route('filieres.update', $filiere->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <input type="text" name="nom" value="{{ $filiere->nom }}" required>
-            <button type="submit">Modifier</button>
-        </form>
-        <a href="{{ route('filieres.index') }}">← Retour à la liste</a>
+        <div class="form-container">
+            <div class="form-header">
+                <h2 style="margin: 0;">
+                    <i class="bi bi-pencil-square"></i> Modifier Filière
+                </h2>
+            </div>
+
+            <form action="{{ route('filieres.update', $filiere->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <div class="form-group">
+                    <label for="nom" class="form-label">
+                        <i class="bi bi-bookmark"></i> Nom de la filière
+                    </label>
+                    <input type="text" class="form-control" id="nom" name="nom" value="{{ $filiere->nom }}" required>
+                </div>
+
+                <div class="d-grid gap-2 pt-3">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-check-circle"></i> Mettre à jour
+                    </button>
+                    <a href="{{ route('filieres.index') }}" class="btn btn-secondary btn-lg">
+                        <i class="bi bi-arrow-left"></i> Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

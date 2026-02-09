@@ -1,34 +1,107 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ajouter un Scrutin</title>
-<style>
-body{font-family:Arial;background:#f4f6f8;margin:0;padding:0;}
-.container{max-width:500px;margin:50px auto;background:#fff;padding:30px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-input,select,button{width:100%;padding:12px;margin:10px 0;border-radius:5px;border:1px solid #ccc;}
-button{background:#3b82f6;color:#fff;border:none;cursor:pointer;transition:0.2s;} button:hover{background:#2563eb;}
-a{text-decoration:none;color:#3b82f6;display:block;margin-top:10px;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter Scrutin | E-Vote</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/scrutins/create.css') }}">
 </head>
 <body>
-<div class="container">
-<h2>Ajouter un Scrutin</h2>
-<form action="{{ route('scrutins.store') }}" method="POST">
-@csrf
-<input type="text" name="nom" placeholder="Nom du scrutin" required>
-<select name="filiere_id" required>
-<option value="">Sélectionnez une filière</option>
-@foreach($filieres as $filiere)
-<option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
-@endforeach
-</select>
-<input type="date" name="date_debut" required>
-<input type="date" name="date_fin" required>
-<button type="submit">Ajouter</button>
-</form>
-<a href="{{ route('scrutins.index') }}">← Retour à la liste</a>
-</div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #1f2937;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ route('welcome') }}">
+                <i class="bi bi-check-circle"></i> E-Vote
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('scrutins.index') }}">Retour</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h2 style="margin: 0;">
+                    <i class="bi bi-plus-circle"></i> Ajouter un Scrutin
+                </h2>
+            </div>
+
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle"></i> Erreur lors de la création
+                </div>
+            @endif
+
+            <form action="{{ route('scrutins.store') }}" method="POST">
+                @csrf
+
+                <div class="form-group">
+                    <label for="nom" class="form-label">
+                        <i class="bi bi-list-check"></i> Nom du scrutin
+                    </label>
+                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Ex: Élection du délégué" value="{{ old('nom') }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="titre" class="form-label">
+                        <i class="bi bi-pencil"></i> Titre du scrutin
+                    </label>
+                    <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre du scrutin" value="{{ old('titre') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="filiere_id" class="form-label">
+                        <i class="bi bi-bookmark"></i> Filière
+                    </label>
+                    <select class="form-select" id="filiere_id" name="filiere_id" required>
+                        <option value="">-- Sélectionner une filière --</option>
+                        @foreach($filieres as $filiere)
+                            <option value="{{ $filiere->id }}" {{ old('filiere_id') == $filiere->id ? 'selected' : '' }}>
+                                {{ $filiere->nom }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="date_debut" class="form-label">
+                                <i class="bi bi-calendar-event"></i> Date de début
+                            </label>
+                            <input type="date" class="form-control" id="date_debut" name="date_debut" value="{{ old('date_debut') }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="date_fin" class="form-label">
+                                <i class="bi bi-calendar-check"></i> Date de fin
+                            </label>
+                            <input type="date" class="form-control" id="date_fin" name="date_fin" value="{{ old('date_fin') }}" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 pt-3">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-check-circle"></i> Créer le scrutin
+                    </button>
+                    <a href="{{ route('scrutins.index') }}" class="btn btn-secondary btn-lg">
+                        <i class="bi bi-arrow-left"></i> Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

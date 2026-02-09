@@ -1,0 +1,307 @@
+/* ====================================
+   PAGE DE RÉSULTATS DE VOTES
+   ==================================== */
+
+.results-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.results-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.results-header h1 {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.results-header p {
+    opacity: 0.95;
+    font-size: 1rem;
+}
+
+.result-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.result-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.candidate-name {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.vote-count {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+}
+
+.progress-bar-container {
+    background-color: #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 30px;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar-custom {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    transition: width 0.5s ease;
+    min-width: 40px;
+}
+
+.progress-percentage {
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-align: right;
+    margin-top: 0.25rem;
+}
+
+.chart-container {
+    position: relative;
+    height: 400px;
+    margin: 2rem 0;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.stat-badge {
+    background: rgba(102, 126, 234, 0.1);
+    border-left: 4px solid #667eea;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-badge label {
+    display: block;
+    color: #6b7280;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.stat-badge value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.results-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.results-controls button,
+.results-controls a {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-export {
+    background: #10b981;
+    color: white;
+}
+
+.btn-export:hover {
+    background: #059669;
+}
+
+.btn-back {
+    background: #e5e7eb;
+    color: #1f2937;
+}
+
+.btn-back:hover {
+    background: #d1d5db;
+}
+
+/* ====================================
+   RESPONSIVE RESULTS
+   ==================================== */
+
+@media (max-width: 992px) {
+    .chart-container {
+        height: 300px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .results-container {
+        padding: 1.5rem;
+    }
+
+    .results-header {
+        padding: 1.5rem;
+    }
+
+    .results-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .result-card {
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .result-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .vote-count {
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: right;
+    }
+
+    .chart-container {
+        height: 250px;
+        padding: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .stat-badge {
+        padding: 1.25rem;
+    }
+
+    .results-controls {
+        flex-direction: column;
+    }
+
+    .results-controls button,
+    .results-controls a {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .results-container {
+        padding: 1rem;
+    }
+
+    .results-header {
+        padding: 1.25rem;
+    }
+
+    .results-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .results-header p {
+        font-size: 0.9rem;
+    }
+
+    .result-card {
+        padding: 1rem;
+    }
+
+    .candidate-name {
+        font-size: 1rem;
+    }
+
+    .vote-count {
+        font-size: 1rem;
+        padding: 0.4rem 0.75rem;
+    }
+
+    .progress-bar-container {
+        height: 25px;
+    }
+
+    .progress-bar-custom {
+        min-width: 30px;
+        font-size: 0.8rem;
+    }
+
+    .progress-percentage {
+        font-size: 0.8rem;
+    }
+
+    .chart-container {
+        height: 200px;
+        padding: 0.75rem;
+    }
+
+    .stat-badge {
+        padding: 1rem;
+    }
+
+    .stat-badge label {
+        font-size: 0.8rem;
+    }
+
+    .stat-badge value {
+        font-size: 1.4rem;
+    }
+
+    .results-controls button,
+    .results-controls a {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}
