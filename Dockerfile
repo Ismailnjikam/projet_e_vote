@@ -39,6 +39,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install pdo pdo_sqlite
 RUN a2enmod rewrite
+RUN a2dismod mpm_event && a2enmod mpm_prefork
 
 # Copier app buildée
 COPY --from=builder /app /app
