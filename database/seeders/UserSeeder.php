@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Filiere;
+use App\Models\Utilisateur;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        Utilisateur::factory()->create([
             'name' => 'sima',
             'email' =>'sima@gmail.com',
             'login' => 'CM123',
@@ -25,12 +26,21 @@ class UserSeeder extends Seeder
             'password'=>Hash::make('password123'),
         ]);
 
+        Utilisateur::factory()->create([
+            'name' => 'sampa',
+            'email' =>'sampa@gmail.com',
+            'login' => 'CM124',
+            'role'=>'admin',
+            'filiere_id'=>null,
+            'password'=>Hash::make('password1234'),
+        ]);
+
         //creer 10 votant de facon aleatoire
-        User::factory(10)->votant()->create();
+        Utilisateur::factory(10)->votant()->create();
 
         $filiere =  Filiere::first();
         if($filiere){
-            User::factory(5)->votant()->create([
+            Utilisateur::factory(5)->votant()->create([
                 'filiere_id' => $filiere->id,
             ]);
         }
