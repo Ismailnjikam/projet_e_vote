@@ -10,16 +10,16 @@ use App\Http\Controllers\VoteController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Scrutin;
 
-Route::get('/welcome', [WelcomeController::class, 'welcome'])->name('welcome');
+Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 
 
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 // Afficher le formulaire d'inscription (GET)
-Route::get('/register', function () {
-    return view('auth.register'); // Ton fichier Blade
-})->name('register');
+//Route::get('/register', function () {
+  //  return view('auth.register'); // Ton fichier Blade
+//})->name('register');
 
 // Traitement du formulaire d'inscription (POST)
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
